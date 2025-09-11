@@ -4,6 +4,7 @@ from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
     pygame.init()
@@ -14,19 +15,16 @@ def main():
     # --- groups ---
     updatable = pygame.sprite.Group() # anything with .update(dt)
     drawable = pygame.sprite.Group() # anything with .draw(screen)
-    asteroids = pygame.sprite.Group() # all asteroids 
+    asteroids = pygame.sprite.Group() # all asteroids
+    shots = pygame.sprite.Group() 
 
-    # --- containers wiring (set BEFORE instantiation) ---
-    #  Player should update and draw
+    # --- containers (set BEFORE creating instances) ---
     Player.containers = (updatable, drawable)
-
-    # Asteroid should be tracked in all three
     Asteroid.containers = (asteroids, updatable, drawable)
-
-    # AsteroidField only updates (it spawns asteroids; it isn't drawable)
     AsteroidField.containers = (updatable)
+    Shot.containers = (shots, updatable, drawable)
 
-    # --- create objects ---
+    # instances
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     field = AsteroidField()
 
