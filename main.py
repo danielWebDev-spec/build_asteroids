@@ -45,11 +45,12 @@ def main():
                 pygame.quit()
                 sys.exit()
 
+        # --- collisions: shots vs asteroids ---
         for asteroid in list(asteroids):
             for shot in list(shots):
                 if asteroid.collides_with(shot):
                     shot.kill()
-                    asteroid.kill()
+                    asteroid.split()
                     break
 
         # draw all
